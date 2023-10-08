@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react';
 //import { Checkbox } from 'expo-checkbox';
-import { Checkbox } from 'react-native-paper';
+import { Button, Checkbox } from 'react-native-paper';
 export default function twoC() {
     var [password, setPassword] = useState('')
     var [length, setLength] = useState()
@@ -9,6 +9,7 @@ export default function twoC() {
     var [Upcase, setUpcase] = useState(false)
     var [Number, setNumber] = useState(false)
     var [SpecialSymbol, setSpecialSymbol] = useState(false)
+    var charset =''
     return (
         <View style={styles.container}>
             <View style={styles.viewPass}>
@@ -33,8 +34,55 @@ export default function twoC() {
                         }}
                     />
                 </View>
+                <View style={styles.viewFrontText}>
+                    <Text style={styles.TextFront}> Include upcase letters </Text>
+                    <Checkbox
+                        color={'white'}
+                        uncheckedColor='white'
+                        status={Upcase ? 'checked' : 'unchecked'}
+                        onPress={() => {
+                            setUpcase(!Upcase);
+                        }}
+                    />
+                </View>
+                <View style={styles.viewFrontText}>
+                    <Text style={styles.TextFront}> Include number</Text>
+                    <Checkbox
+                        color={'white'}
+                        uncheckedColor='white'
+                        status={Number ? 'checked' : 'unchecked'}
+                        onPress={() => {
+                            setNumber(!Number);
+                        }}
+                    />
+                </View>
+                <View style={styles.viewFrontText}>
+                    <Text style={styles.TextFront}> Include special symbol </Text>
+                    <Checkbox
+                        color={'white'}
+                        uncheckedColor='white'
+                        status={SpecialSymbol ? 'checked' : 'unchecked'}
+                        onPress={() => {
+                            setSpecialSymbol(!SpecialSymbol);
+                        }}
+                    />
+                </View>
+                <TouchableOpacity style={styles.btnGenePass} onPress={() => {
+                    password = ''
+                    if (LowerCase) charset += 'abcdefghijklmnopqrstuvwxyz'
+                    if (Upcase) charset += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+                    if (Number) charset += '0123456789'
+                    if (SpecialSymbol) charset += '!@#$%^&*()_+~`|}{[]\:;?><,./-='
+                    for (let i = 0; i < length; i++) {
+                        password += charset.charAt(Math.floor(Math.random() * charset.length));
+                    }
+                    setPassword(password);
+                }}>
+                    <Text style={styles.textGenePass}>GENERATE PASSWORD</Text>
+                </TouchableOpacity>
             </View>
         </View>
+
     )
 }
 var styles = StyleSheet.create({
@@ -74,7 +122,8 @@ var styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        width: "80%",
+        width: '80%',
+        height: '10%',
         marginBottom: 10,
     },
     TextFront: {
@@ -90,8 +139,23 @@ var styles = StyleSheet.create({
         padding: 5,
         width: 100,
     },
-    checkbox: {
-        height: '20px',
-        width: '20px'
-    }
+    btnGenePass: {
+        backgroundColor: "#3b3b98",
+        width: "80%",
+        height: 50,
+        borderRadius: 5,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 20,
+    },
+    textGenePass: {
+        fontSize: 18,
+        fontWeight: '700',
+        fontWeight: "bold",
+        color: "white",
+        marginBottom: 20,
+        paddingBottom: 10,
+        top:'15px'
+    },
+
 })
