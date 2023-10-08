@@ -8,9 +8,9 @@ import tiki_Ok from './screen/Tiki_Ok';
 
 export default function App() {
   return (
-    // twoA()
+     twoA()
     // twoB()
-     twoC()
+    // twoC()
     // tiki_Ok()
   );
 }
